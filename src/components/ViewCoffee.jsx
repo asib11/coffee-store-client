@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
 
 // eslint-disable-next-line react/prop-types
@@ -17,7 +18,7 @@ const ViewCoffee = ({ coffee }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 console.log(_id);
-                
+
                 fetch(`http://localhost:5000/coffee/${_id}`, {
                     method: 'DELETE'
                 })
@@ -52,7 +53,9 @@ const ViewCoffee = ({ coffee }) => {
 
                     <div className="join join-vertical justify-between">
                         <button className="btn">view</button>
+                        <Link to={`/updatecoffee/${_id}`}>
                         <button className="btn">edit</button>
+                        </Link>
                         <button onClick={() => handleDelete(_id)} className="btn bg-red-500">X</button>
                     </div>
 
