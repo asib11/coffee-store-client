@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
 
 // eslint-disable-next-line react/prop-types
-const ViewCoffee = ({ coffee }) => {
+const ViewCoffee = ({ coffee, coffees, setCoffees }) => {
     // eslint-disable-next-line react/prop-types
     const { _id, name, chef, supplier, taste, category, details, photo } = coffee;
 
@@ -26,11 +26,13 @@ const ViewCoffee = ({ coffee }) => {
                     .then(data => {
                         console.log(data)
                         if (data.deletedCount > 0) {
-                              Swal.fire({
+                            Swal.fire({
                                 title: "Deleted!",
                                 text: "Your file has been deleted.",
                                 icon: "success"
-                              });
+                            });
+                            const remaining = coffees.filter(cof => cof._id !== _id);
+                            setCoffees(remaining)
                         }
                     })
 
@@ -54,7 +56,7 @@ const ViewCoffee = ({ coffee }) => {
                     <div className="join join-vertical justify-between">
                         <button className="btn">view</button>
                         <Link to={`/updatecoffee/${_id}`}>
-                        <button className="btn">edit</button>
+                            <button className="btn">edit</button>
                         </Link>
                         <button onClick={() => handleDelete(_id)} className="btn bg-red-500">X</button>
                     </div>
